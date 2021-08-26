@@ -1,0 +1,22 @@
+version: "2.3"
+services: 
+  react:
+    container_name: react
+    build: ./frontend
+    ports: [3000:3000]
+    volumes: [./frontend:/app/frontend] 
+  laravel:
+    container_name: laravel
+    build: ./backend
+    ports: [8000:8000]
+    volumes: [./backend:/app/backend]
+    links: [db]
+  db:
+    container_name: mysql
+    image: mysql  
+    expose: [3306]
+    ports: [3306:3306]
+    volumes: [/var/lib/mysql]
+    environment:
+      MYSQL_DATABASE: chatcha_db
+      MYSQL_ROOT_PASSWORD: chatcha

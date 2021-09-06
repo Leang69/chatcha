@@ -4,12 +4,16 @@ services:
     container_name: react
     build: ./frontend
     ports: [3000:3000]
-    volumes: [./frontend:/app/frontend] 
+    volumes: 
+      - /app/node_modules
+      - ./frontend:/app
   laravel:
     container_name: laravel
     build: ./backend
     ports: [8000:8000]
-    volumes: [./backend:/app/backend]
+    volumes: 
+      - /app/vendor
+      - ./backend:/app
     links: [db]
   db:
     container_name: mysql

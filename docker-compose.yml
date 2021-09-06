@@ -13,10 +13,14 @@ services:
     links: [db]
   db:
     container_name: mysql
-    image: mysql  
+    image: mysql
     expose: [3306]
     ports: [3306:3306]
     volumes: [/var/lib/mysql]
     environment:
       MYSQL_DATABASE: chatcha_db
       MYSQL_ROOT_PASSWORD: chatcha
+  redis:
+    container_name: redis
+    image: redis:6.2.5-alpine
+

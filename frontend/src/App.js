@@ -1,10 +1,11 @@
-
+import Authentication from "./component/Auth/Authentication";
+import { Switch, Route } from "react-router-dom";
 function App() {
   return (
-    <div className="App">
-      <h1>chatcha</h1>
-      
-    </div>
+    <Switch>
+      <Route path="/auth"><Authentication /></Route>
+    </Switch>
+
   );
 }
 

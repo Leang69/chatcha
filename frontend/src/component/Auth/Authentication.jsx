@@ -11,28 +11,7 @@ export default function Authentication() {
         <h1 className="my-auto">chatcha</h1>
       </div>
 
-      <div className="login-panel container">
-        <div className="auth-switchs">
-          <button
-            onClick={() => {
-              setLogin(true);
-              history.push("/auth/login");
-            }}
-            className={`btn  ${isLogin ? "active" : "deactive"}`}
-          >
-            Log In
-          </button>
-          <button
-            onClick={() => {
-              setLogin(false);
-              history.push("/auth/signup");
-            }}
-            className={`btn  ${!isLogin ? "active" : "deactive"}`}
-          >
-            Sign Up
-          </button>
-        </div>
-
+      <div className="auth-panel container">
         <Switch>
           <Route path="/auth/login">
             <LoginForm />

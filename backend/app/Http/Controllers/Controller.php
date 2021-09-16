@@ -12,6 +12,11 @@ use Illuminate\Routing\Controller as BaseController;
  *    title="ChatCha Backend API",
  *    version="1.0.0",
  * )
+ * @OA\SecurityScheme(
+ *     securityScheme="bearerAuth",
+ *     type="http",
+ *     scheme="bearer"
+ * )
  */
 class Controller extends BaseController
 {

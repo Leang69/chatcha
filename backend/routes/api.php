@@ -19,7 +19,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/signup', [Authentication::class,"signup"]);
+Route::post('/signup', [Authentication::class, "signup"]);
+Route::post('/login', [Authentication::class, "login"]);
 
-Route::post('/login', function (Request $request) {
+Route::post('/forget_password', [Authentication::class, "forgetPassword"]);
+Route::get('/forget_password/{user}', [Authentication::class, "forgetPasswordHandler"])->name("forget_password_handler");
+
+Route::middleware('auth:sanctum')->group(function(){
+    Route::post('/change_password', [Authentication::class, "changePassword"]);
 });
+

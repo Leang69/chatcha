@@ -22,10 +22,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/signup', [Authentication::class, "signup"]);
 Route::post('/login', [Authentication::class, "login"]);
 
-Route::post('/forget_password', [Authentication::class, "forgetPassword"]);
-Route::get('/forget_password/{user}', [Authentication::class, "forgetPasswordHandler"])->name("forget_password_handler");
+Route::post('/forget_password_request', [Authentication::class, "RequestForgetPassword"]);
+Route::get('/forget_password/{user}', [Authentication::class, "ForgetPasswordHandler"])->name("forget_password_handler");
 
-Route::middleware('auth:sanctum')->group(function(){
+//protect route
+Route::middleware('auth:sanctum')->group(function () {
     Route::post('/change_password', [Authentication::class, "changePassword"]);
+    Route::post('/verify_email_request', [Authentication::class, "RequestEmailVerification"]);
+    Route::post('/verify_email_handler', [Authentication::class, "EmailVerificationHandler"]);
 });
-

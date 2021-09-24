@@ -6,9 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\URL;
 
-class ForgetPassword extends Mailable
+class VerifyEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -17,13 +16,13 @@ class ForgetPassword extends Mailable
      *
      * @return void
      */
-    private $userID;
-    private $username;
-    public function __construct($userID, $username)
+    public $username;
+    public $code;
+    public function __construct($code, $username)
     {
         //
-        $this->userID = $userID;
         $this->username = $username;
+        $this->code = $code;
     }
 
     /**
@@ -33,9 +32,6 @@ class ForgetPassword extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.auth.forget_password', [
-            'url' => URL::temporarySignedRoute('forget_password_handler', now()->addMinute(15) ,['user' => $this->userID]),
-            'username' => $this->username
-        ]);
+        return $this->markdown('emails.auth.verify_email', ['username' => $this->username, 'code' => $this->code]);
     }
 }

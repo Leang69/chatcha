@@ -220,12 +220,12 @@
                 ]
             }
         },
-        "/api/forget_password": {
+        "/api/forget_password_request": {
             "post": {
                 "tags": [
                     "auth"
                 ],
-                "operationId": "199b2dc6323a6f21bf0318bdad651b37",
+                "operationId": "e2585d1138fed2e7348836701b7af39c",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -260,6 +260,100 @@
                         }
                     }
                 }
+            }
+        },
+        "/api/verify_email_request": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "operationId": "c21f8a9678891d33d6a63e69190e753b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "code": {
+                                        "type": "string",
+                                        "example": "da1Scz2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/verify_email_handler": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "operationId": "7c535f44d6462f7c2e2f6bd603b62d0e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "code": {
+                                        "type": "string",
+                                        "example": "da1Scz2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         }
     },

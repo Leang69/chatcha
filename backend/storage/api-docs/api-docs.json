@@ -5,6 +5,37 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/user": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "operationId": "fa3a91a320b3c3d6d0d2f617f5260260",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/signup": {
             "post": {
                 "tags": [
@@ -268,6 +299,37 @@
                     "auth"
                 ],
                 "operationId": "c21f8a9678891d33d6a63e69190e753b",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/verify_email_handler": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "operationId": "7c535f44d6462f7c2e2f6bd603b62d0e",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -309,21 +371,25 @@
                 ]
             }
         },
-        "/api/verify_email_handler": {
+        "/api/send_text_message": {
             "post": {
                 "tags": [
-                    "auth"
+                    "chatting"
                 ],
-                "operationId": "7c535f44d6462f7c2e2f6bd603b62d0e",
+                "operationId": "33a2d87014a70808f39a252d27d8c3c1",
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "code": {
+                                    "receiverID": {
                                         "type": "string",
-                                        "example": "da1Scz2"
+                                        "example": "2"
+                                    },
+                                    "messageContent": {
+                                        "type": "string",
+                                        "example": "Helllo"
                                     }
                                 },
                                 "type": "object"

@@ -18,6 +18,24 @@ class Authentication extends Controller
 {
 
     /** 
+     * @OA\Get(
+     * path="/api/user",
+     * tags={"auth"},
+     * security={{"bearerAuth":{}}},
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *      @OA\JsonContent(
+     *          @OA\Property(property="status", type="string", example="success"),
+     *      )
+     * )
+     * )
+     */
+    public function user(Request $request){
+        return response()->json($request->user());
+    }
+
+    /** 
      * @OA\Post(
      * path="/api/signup",
      * tags={"auth"},
@@ -205,12 +223,6 @@ class Authentication extends Controller
      * path="/api/verify_email_request",
      * tags={"auth"},
      * security={{"bearerAuth":{}}},
-     * @OA\RequestBody(
-     *       required=true,
-     *    @OA\JsonContent(
-     *       @OA\Property(property="code", type="string", example="da1Scz2")
-     *    )
-     * ),
      * @OA\Response(
      *    response=200,
      *    description="Success",
@@ -237,7 +249,7 @@ class Authentication extends Controller
             }
         }
         $emailVerificationCode = new EmailVerificationCode();
-        $alphanumeric = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $alphanumeric = '0123456789';
         $code = generate_alphanumeric($alphanumeric, $emailVerificationCode);
 
         $oldCode = $emailVerificationCode::where('user_id', $request->user()->id);
@@ -283,9 +295,7 @@ class Authentication extends Controller
      */
     public function EmailVerificationHandler(Request $request)
     {
-        return response()->json($request);
-
-        if (!ctype_alnum($request->code)) {
+        if (!is_numeric($request->code)) {
             return response()->json(["status" => "code not match"]);
         }
 

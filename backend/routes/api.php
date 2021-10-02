@@ -33,5 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
 //Chatting
 Route::middleware('auth:sanctum')->group(function (){
     Route::post('/send_text_message',[Chatting::class,"SendMessage"]);
+    Route::post('/get_all_message',[Chatting::class,"GetAllMessage"]);
+    Route::post('/get_last_message',[Chatting::class,"GetLastMessage"]);
 
 });

@@ -4,7 +4,7 @@ function App() {
   return (
     <Switch>
       <Route path="/auth">
-        <Authentication />{" "}
+        <Authentication />
       </Route>
     </Switch>
   );

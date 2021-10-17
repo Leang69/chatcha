@@ -115,7 +115,7 @@ class Authentication extends Controller
             return response()->json(["status" => "wrong emaill or password"], 406);
         }
         $token = $user->createToken($user->email)->plainTextToken;
-        return response()->json(['token' => $token, "status" => "success"]);
+        return response()->json(['token' => $token, "status" => "success",'user_info'=>$user]);
     }
 
     /** 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, Switch, Route, useHistory } from "react-router-dom";
+import FogetPassword from "./FogetPassword";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 export default function Authentication() {
@@ -15,6 +16,9 @@ export default function Authentication() {
         <Switch>
           <Route path="/auth/login">
             <LoginForm />
+          </Route>
+          <Route path="/auth/forget_password">
+            <FogetPassword />
           </Route>
           <Route path="/auth/signup">
             <SignupForm />

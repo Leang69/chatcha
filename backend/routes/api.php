@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/change_password', [Authentication::class, "changePassword"]);
     Route::post('/verify_email_request', [Authentication::class, "RequestEmailVerification"]);
     Route::post('/verify_email_handler', [Authentication::class, "EmailVerificationHandler"]);
+    Route::post('/forget_password', [Authentication::class, "ForgetPassword"]);
 });
 
 //Chatting

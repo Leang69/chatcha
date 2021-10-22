@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Link, Switch, Route, useHistory } from "react-router-dom";
-import FogetPassword from "./FogetPassword";
+import FogetPasswordRequest from "./FogetPasswordRequest";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
+import ForgetPasswordToken from "./ForgetPasswordToken"
+import ForgetPassword from "./FogetPassword";
+
 export default function Authentication() {
   const [isLogin, setLogin] = useState();
   let history = useHistory();
@@ -17,11 +20,17 @@ export default function Authentication() {
           <Route path="/auth/login">
             <LoginForm />
           </Route>
+          <Route path="/auth/forget_password/change_password">
+            <ForgetPassword />
+          </Route>
           <Route path="/auth/forget_password">
-            <FogetPassword />
+            <FogetPasswordRequest />
           </Route>
           <Route path="/auth/signup">
             <SignupForm />
+          </Route>
+          <Route path="/auth/reset_password_token/:token">
+            <ForgetPasswordToken />
           </Route>
         </Switch>
       </div>

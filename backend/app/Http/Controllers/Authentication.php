@@ -74,7 +74,7 @@ class Authentication extends Controller
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->save();
-            $token = $user->createToken($user->email)->plainTextToken;
+            $token = $user->createToken($user->email,['user:auth'])->plainTextToken;
             return response()->json(['token' => $token, "status" => "success"]);
         }
     }
@@ -114,7 +114,7 @@ class Authentication extends Controller
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(["status" => "wrong emaill or password"], 406);
         }
-        $token = $user->createToken($user->email)->plainTextToken;
+        $token = $user->createToken($user->email,['user:auth'])->plainTextToken;
         return response()->json(['token' => $token, "status" => "success",'user_info'=>$user]);
     }
 
@@ -199,7 +199,7 @@ class Authentication extends Controller
             );
             return response()->json(["status" => "success"]);
         } else {
-            return response()->json(["status" => "account dosen't exit"], 406);
+            return response()->json(["status" => "account dosen't exit"]);
         }
     }
 
@@ -211,9 +211,41 @@ class Authentication extends Controller
             abort(401);
         } else {
             $user = User::find($request->user);
-            $token = $user->createToken($user->email, ['user:restPassword'])->plainTextToken;
-            return redirect("http://localhost:3000/reset_password_token/" . $token);
+            $token = $user->createToken($user->email, ['user:reset_password'])->plainTextToken;
+            return redirect("http://localhost:3000/auth/reset_password_token/" . $token);
         }
+    }
+
+    //request a email to verify user to do a forget password process.
+    /** 
+     * @OA\Post(
+     * path="/api/forget_password",
+     * tags={"auth"},
+     * security={{"bearerAuth":{}}},
+     * @OA\RequestBody(
+     *       required=true,
+     *    @OA\JsonContent(
+     *       @OA\Property(property="password", type="string", example="123123123")
+     *    )
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *      @OA\JsonContent(
+     *          @OA\Property(property="status", type="string", example="success")
+     *      )
+     * )
+     * )
+     */
+    public function ForgetPassword(Request $request){
+        if($request->user()->tokenCan('user:reset_password')){
+            $user = User::find($request->user()->id);
+            $user->password = Hash::make($request->password);
+            $user->save();
+            return response()->json(["status" => "success"], 200);
+        }
+
+        return response()->json(["status" => "permision denied"], 200);
     }
 
 

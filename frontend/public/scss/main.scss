@@ -72,6 +72,10 @@ body {
           .password {
             border: 1px solid #ced4da;
             border-radius: 0.25rem;
+            &:focus-within{
+              border-color: #80e8ff;
+              box-shadow: 0 0 0 0.25rem rgb(0 209 255 / 25%);
+            }
             input {
               border: none;
               &:focus {
@@ -79,6 +83,9 @@ body {
               }
             }
             button{
+              &:hover{
+                background-color: $light-gray;
+              }
               &:focus{
                 box-shadow: none;
               }

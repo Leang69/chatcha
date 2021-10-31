@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-function PasswordInput({ register, label }) {
+function PasswordInput({ register, label, errorHandler }) {
 
     const [ShowPassword, SetShowPassword] = useState(false);
     const inputRef = useRef(null)
@@ -29,6 +29,7 @@ function PasswordInput({ register, label }) {
                     <i className={`bi bi-eye${ShowPassword ? "" : "-slash"}`} />
                 </button>
             </div>
+            {errorHandler}
         </div>
     );
 }

@@ -13,6 +13,7 @@ export default function LoginForm() {
   } = useForm();
 
   const [isInvalidCreditail, setIsInvalidCreditail] = useState(false)
+  const [loading, setLoading] = useState(false);
 
 
   const dispatch = useDispatch();
@@ -20,16 +21,19 @@ export default function LoginForm() {
   const submitHandler = (data) => {
     console.log(data);
     setIsInvalidCreditail(false)
+    setLoading(true)
     axios
       .post(process.env.REACT_APP_BACKEND_URI + "api/login", data)
       .then((respoone) => {
         console.log(respoone.data);
         dispatch({ type: 'SetUserToken', payload: respoone.data })
         dispatch({ type: 'SetUserInfo', payload: respoone.data })
+        setLoading(false)
       })
       .catch((error) => {
         console.log(error);
         setIsInvalidCreditail(true)
+        setLoading(false)
       });
   };
 
@@ -69,21 +73,29 @@ export default function LoginForm() {
           </a>
         </Link>
         {isInvalidCreditail && <p className="text-danger">Wrong Password or Email</p>}
-        <div className="d-flex flex-column">
-          <button type="submit" className="btn w-100 btn-primary-dark">
-            Log In
-          </button>
-          <button className="btn w-100 btn-primary-dark">
-            Log In With Google
-          </button>
-        </div>
+
+        {loading
+          ? <div className=" d-flex justify-content-center">
+            <div class="spinner-border text-primary my-2" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div> : <div><div className="d-flex flex-column">
+            <button type="submit" className="btn w-100 btn-primary-dark">
+              Log In
+            </button>
+            <button className="btn w-100 btn-primary-dark">
+              Log In With Google
+            </button>
+          </div>
+            <hr />
+            <Link to="/auth/signup">
+              <button className="btn w-100 btn-primary-dark">
+                Create Account
+              </button>
+            </Link></div>}
+
       </form>
-      <hr />
-      <Link to="/auth/signup">
-        <button className="btn w-100 btn-primary-dark">
-          Create Account
-        </button>
-      </Link>
+
     </div>
   );
 }

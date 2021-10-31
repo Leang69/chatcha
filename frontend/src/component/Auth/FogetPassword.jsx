@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
+import PasswordInput from './PasswordInput';
 function ForgetPassword() {
     const {
         register,
@@ -28,69 +29,12 @@ function ForgetPassword() {
 
     }
 
-    const confirmPasswordInputRef = useRef(null);
-    const confirmPasswordRef = useRef(null);
-    const PasswordInputRef = useRef(null);
-    const PasswordRef = useRef(null);
-
-    const [ShowPassword, SetShowPassword] = useState(false);
-    const [ShowConPassword, SetConShowPassword] = useState(false);
-
-    const showPasswordHandle = (ref,state,setState) => {
-        if (ref.current.type === "password") {
-            ref.current.type = "text"
-        } else {
-            ref.current.type = "password"
-        }
-        setState(!state);
-    }
-    const PasswordInputForcusHandle = ref => {
-        ref.current.focus()
-    }
-
     return (
         <div>
             <h1 className="auth-title">Change Password</h1>
             <form onSubmit={handleSubmit(submitHandler)} className="auth-form">
-                <div className="user-credential">
-                    <label className="form-label" for="password">
-                        New Password
-                    </label>
-                    <div ref={PasswordRef} className="d-flex password">
-                        <input
-                            {...register("password", { required: true })}
-                            className="form-control"
-                            type="password"
-                            name="password"
-                            onFocus={() => console.log("hello")}
-                            ref={PasswordInputRef}
-                            onFocus={() => { PasswordInputForcusHandle(PasswordRef) }}
-                        />
-                        <button onClick={() => { showPasswordHandle(PasswordInputRef, ShowPassword,SetShowPassword) }} type="button" className="btn showPassword">
-                        <i className={`bi bi-eye${ShowPassword ? "" : "-slash"}`} />
-                        </button>
-                    </div>
-                </div>
-                <div className="user-credential">
-                    <label className="form-label" for="confirm_password">
-                        New Confirm Password
-                    </label>
-                    <div ref={confirmPasswordRef} className="d-flex password">
-                        <input
-                            {...register("confirm_password", { required: true })}
-                            className="form-control"
-                            type="password"
-                            name="confirm_password"
-                            onFocus={() => console.log("hello")}
-                            ref={confirmPasswordInputRef}
-                            onFocus={() => { PasswordInputForcusHandle(confirmPasswordRef) }}
-                        />
-                        <button onClick={() => { showPasswordHandle(confirmPasswordInputRef,ShowConPassword,SetConShowPassword) }} type="button" className="btn showPassword">
-                            <i className={`bi bi-eye${ShowConPassword ? "" : "-slash"}`} />
-                        </button>
-                    </div>
-
-                </div>
+                <PasswordInput label={"New Password"} register={register("password")} />
+                <PasswordInput label={"New Confirm Password"} register={register("confirm_password", { required: true })} />
                 {
                     loading ?
                         <div className=" d-flex justify-content-center">
